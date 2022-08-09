@@ -1,0 +1,28 @@
+html{
+width: 100%;
+    height: 100vh;
+}
+
+body{
+    background-color: rgb(70, 6, 129);
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+}
+
+#canvas{
+    border: 2px solid white;
+}
+
+#scoreboard{
+    position: absolute;
+    left: 50%;
+    top: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px 15px;
+}
+
+.score{
+    color: white;
+    margin: 10px;
+}
