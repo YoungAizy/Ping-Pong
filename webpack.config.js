@@ -13,7 +13,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Game Central',
+            title: 'Ping Pong Game',
             filename: 'main.html',
             template: 'public/index.html',
         }),
