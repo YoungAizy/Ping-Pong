@@ -1,4 +1,5 @@
 import Game from "./game.js";
+import "../style.css";
 
 
 const canvas = document.getElementById("canvas");
