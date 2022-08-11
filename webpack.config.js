@@ -2,7 +2,6 @@ const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-    mode: 'production',
     entry: {
         bundle: path.resolve(__dirname, 'public/src/main.js'),
     },
@@ -11,10 +10,16 @@ module.exports = {
         filename: '[name][contenthash].js',
         clean: true,
     },
+    module: {
+        rules: [{
+            test: /\.css$/,
+            use: ['style-loader', 'css-loader'],
+        }]
+    },
     plugins: [
-        new HtmlWebpackPlugin({
+        new htmlWebpackPlugin({
             title: 'Ping Pong Game',
-            filename: 'main.html',
+            filename: 'index.html',
             template: 'public/index.html',
         }),
     ],
