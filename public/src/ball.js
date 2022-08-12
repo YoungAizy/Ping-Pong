@@ -3,19 +3,24 @@ export default class Ball {
     constructor(canvas, game) {
         this.width = canvas.clientWidth;
         this.height = canvas.clientHeight;
+
+        this.paddles = game;
+
+        this.radius = 16;
+        this.init();
+    }
+
+    init() {
         this.speed = {
             x: -7,
             y: 5
         };
 
-        this.paddles = game;
-
         this.position = {
-            x: canvas.clientWidth / 2 - 16,
+            x: canvas.clientWidth / 2 - this.radius,
             y: canvas.clientHeight / 2,
         }
 
-        this.radius = 16;
     }
 
     draw(ctx) {
@@ -23,7 +28,6 @@ export default class Ball {
         ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2, false);
         ctx.closePath();
         ctx.fill();
-        //ctx.fillRect(this.position.x,this.position.y,25,25)
     }
 
     update() {
@@ -73,7 +77,7 @@ export default class Ball {
 
     resetPosition() {
         this.position = {
-            x: canvas.clientWidth / 2 - 16,
+            x: canvas.clientWidth / 2 - this.radius,
             y: canvas.clientHeight / 2,
         };
         this.speed.x = -this.speed.x;

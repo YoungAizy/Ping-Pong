@@ -7,13 +7,17 @@ export default class Player {
         this.player.innerText = this.score;
 
         this.maxSpeed = 6;
-        this.speed = 0;
 
+        this.init(canvas)
+
+    }
+
+    init(canvas) {
+        this.speed = 0;
         this.position = {
             x: 0,
             y: canvas.clientHeight / 2 - 50,
         }
-
     }
 
     stop() {

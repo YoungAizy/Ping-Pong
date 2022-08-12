@@ -3,16 +3,17 @@ import Ball from "./ball.js";
 import InputHandler from "./input.js";
 import Player from "./player.js";
 
-const GAMESTATE = {
-    GAMEOVER: 0,
+export const GAMESTATE = {
+    SUSPENDED: 0,
     PLAY: 1,
+    GAMEOVER: 2
 }
 
 export default class Game {
 
     constructor(canvas) {
 
-        this.gameState = GAMESTATE.PLAY;
+        this.gameState = GAMESTATE.SUSPENDED;
         this.winner = "";
         this.gamewidth = canvas.width;
         this.gameheight = canvas.height;
@@ -22,7 +23,9 @@ export default class Game {
         this.npc = new AI(canvas);
 
         this.ball = new Ball(canvas, this);
-        new InputHandler(this.player);
+        new InputHandler(this);
+        this.canvas = canvas;
+
     }
 
     updateScore() {
@@ -32,8 +35,7 @@ export default class Game {
     }
 
     updateFrame() {
-        //this.scoreCheck()
-        if (this.gameState === GAMESTATE.GAMEOVER) return;
+        if (this.gameState === GAMESTATE.SUSPENDED || this.gameState === GAMESTATE.GAMEOVER) return;
         this.ball.update();
         this.player.update()
         this.npc.update()
@@ -59,7 +61,7 @@ export default class Game {
         ctx.font = "30px Arial";
         ctx.fillStyle = "white";
         ctx.textAlign = "center";
-        const text = "GAMEOVER!!! " + winner + " is the winner "
+        const text = "GAMEOVER!!! " + winner + " is the winner."
         ctx.fillText(text, this.gamewidth / 2, this.gameheight / 2);
     }
 
@@ -72,6 +74,18 @@ export default class Game {
             this.winner = "AI";
             this.gameState = GAMESTATE.GAMEOVER;
         }
+    }
+
+    reset() {
+        this.player.score = 0;
+        this.npc.score = 0;
+        this.updateScore();
+
+        this.ball.init(this.canvas);
+        this.player.init(this.canvas);
+        this.npc.init(this.canvas)
+        this.gameState = GAMESTATE.PLAY;
+
     }
 
 
